@@ -6,16 +6,17 @@ exports.hasAuthValidFields = (req, res, next) => {
 
     if (req.body) {
         if (!req.body.email) {
-            errors.push('No se ha ingresado el email');
+            errors.push('El email es obligatorio');
         }
         if (!req.body.password) {
-            errors.push('No se ha ingresado el password');
+            errors.push('El password es obligatorio');
         }
 
         if (errors.length) {
             return res.status(400).send({
                 status: 400,
-                errors: errors.join(',')
+                message: "Ha ocurrido algún error",
+                errors
             });
         } else {
             return next();
@@ -23,7 +24,8 @@ exports.hasAuthValidFields = (req, res, next) => {
     } else {
         return res.status(400).send({
             status: 400,
-            errors: 'No se han ingresado ni email ni password'
+            message: "Ha ocurrido algún error",
+            errors: ['Email y password son obligatorios']
         });
     }
 };
@@ -48,6 +50,7 @@ exports.isPasswordAndUserMatch = async (req, res, next) => {
     } else {
         return res.status(401).send({
             status: 401,
+            message: "Ha ocurrido algún error",
             errors: ['email o password incorrectas'] });
     }
 };

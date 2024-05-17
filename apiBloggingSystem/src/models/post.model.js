@@ -43,7 +43,11 @@ exports.list = async (tags, categories) => {
     query.categories = { $in: categories.split(',') };
   }
 
-  return await Post.find(query).populate('author', '-_id username email'); ; 
+  return await Post.find(query).populate('author', '-_id username email');
+};
+
+exports.findById = async (postId) => {
+  return await Post.findById(postId);
 };
 
 exports.updatePost = async (id, postData) => {
@@ -52,7 +56,14 @@ exports.updatePost = async (id, postData) => {
   }, postData);
 };
 
-
 exports.removeById = async (postId) => {
   return await Post.findByIdAndDelete(postId);
 };
+
+/* VALIDATORS */
+exports.postIdExists = async( id ) => {
+  const postIdExists = await Post.findById(id);
+  if ( !postIdExists ) {
+      throw new Error(`El post no existe ${ id }`);
+  }
+}

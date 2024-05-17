@@ -1,14 +1,14 @@
+const CommentModel = require('../models/comment.model');
 const PostModel = require('../models/post.model');
-const UserModel = require('../models/user.model');
 
 exports.insert = async (req, res) => {
     try {
         req.body.author = req.jwt.userId;
 
-        let newPost = await PostModel.createPost(req.body);
+        let newComment = await CommentModel.createComment(req.body);
         res.status(201).send({
             status: 201,
-            message: `Post con id ${newPost._id} creado exitosamente`,
+            message: `Comment con id ${newComment._id} creado exitosamente`,
             errors: []
         });
     } catch (error) {
@@ -23,12 +23,12 @@ exports.insert = async (req, res) => {
 
 exports.list = async (req, res) => {
     try {
-        let posts = await PostModel.list(req.query.tags, req.query.categories);
+        let comments = await CommentModel.list();
         res.status(200).json({
             status: 200,
-            message: "Posts obtenidos exitosamente",
-            posts,
-            errors: []
+            message: "Comments obtenidos exitosamente",
+            comments,
+            erros: []
         })
     } catch (error) {
         console.log("Error de servidor", error);
@@ -42,15 +42,15 @@ exports.list = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { postId } = req.params;
+        const { commentId } = req.params;
 
         req.body.author = req.jwt.userId;
 
-        await PostModel.updatePost(postId, req.body);
+        await CommentModel.updateComment(commentId, req.body);
 
         res.status(200).send({
             status: 200,
-            message: `Post con id ${postId} actualizado exitosamente`,
+            message: `Comment con id ${commentId} actualizado exitosamente`,
             errors: []
         });
     } catch (error) {
@@ -65,13 +65,13 @@ exports.update = async (req, res) => {
 
 exports.removeById = async (req, res) => {
     try {
-        const { postId } = req.params;
+        const { commentId } = req.params;
 
-        await PostModel.removeById(postId);
+        await CommentModel.removeById(commentId);
 
         res.status(200).send({
             status: 200,
-            message: `Post con id ${postId} eliminado exitosamente`,
+            message: `Comment con id ${commentId} eliminado exitosamente`,
             errors: []
         });
     } catch (error) {
