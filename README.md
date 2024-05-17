@@ -125,3 +125,6 @@ Como parte de las posibles soluciones ante esta problemática y que permitan a l
 - Implementar un mecanismo de caché para almacenar respuestas a consultas habituales, reduciendo la carga en el microservicio, para ello se puede utilizar Redis como motor de base de datos, el cual almacena datos en memoria, siendo ideal para usarlo como cache en microservicios.
 - Ajustar la configuración de la infraestructura para mejorar la escalabilidad o implementar estrategias de tolerancia a fallos, como la implementación de respaldos y redundancia en diferentes partes del sistema.
 - Configurar alertas automáticas que se activen cuando las métricas de rendimiento superan ciertos niveles previamente establecidos, permitiendo una respuesta rápida a los problemas.
+
+## Coding Exercise
+El ejercicio práctico fue realizado con la versión 20.11.1 de Nodejs y se encuentra en la dirección *apiBlogginSystem/src*

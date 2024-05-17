@@ -7,8 +7,18 @@ exports.login = (req, res) => {
             expiresIn: '1h'
           };
         let token = jwt.sign(req.body, jwtSecret, options);
-        res.status(201).send({ accessToken: token });
-    } catch (err) {
-        res.status(500).send({ errors: err });
+        res.status(201).send({
+            status: 201,
+            message: "Token obtenido exitosamente!", 
+            accessToken: token,
+            errors: []
+        });
+    } catch (error) {
+        console.log("Error de servidor", error);
+        res.status(500).send({
+            status: 500,
+            message: "",
+            errors: ["Ha ocurrido un error de servidor"]
+        });
     }
 };
